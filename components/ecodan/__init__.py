@@ -6,7 +6,7 @@ from esphome.const import (
     CONF_UART_ID,
 )
 
-CODEOWNERS = ["@tobias-93"]
+CODEOWNERS = ["@Desperado88"]
 
 DEPENDENCIES = ["uart"]
 AUTO_LOAD = ["sensor", "text_sensor", "switch"]
