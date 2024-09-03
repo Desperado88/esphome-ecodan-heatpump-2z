@@ -48,6 +48,20 @@ CONFIG_SCHEMA = cv.Schema(
             device_class=DEVICE_CLASS_TEMPERATURE,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
+        cv.Optional("zone2_room_temperature"): sensor.sensor_schema(
+            unit_of_measurement=UNIT_CELSIUS,
+            icon="mdi:home-thermometer",
+            accuracy_decimals=1,
+            device_class=DEVICE_CLASS_TEMPERATURE,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
+        cv.Optional("zone2_flow_temperature"): sensor.sensor_schema(
+            unit_of_measurement=UNIT_CELSIUS,
+            icon="mdi:coolant-temperature",
+            accuracy_decimals=1,
+            device_class=DEVICE_CLASS_TEMPERATURE,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
         cv.Optional("gas_return_temp_signed"): sensor.sensor_schema(
             unit_of_measurement=UNIT_CELSIUS,
             icon="mdi:thermometer-lines",
@@ -153,3 +167,5 @@ def to_code(config):
             sensors.append(f"F({key})")
 
     cg.add_define("ECODAN_SENSOR_LIST(F, sep)", cg.RawExpression(" sep ".join(sensors)))
+
+
