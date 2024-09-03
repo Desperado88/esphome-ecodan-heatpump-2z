@@ -59,9 +59,23 @@ CONFIG_SCHEMA = cv.Schema(
                 cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
             }
         ),
+        # Ajoutez les nouveaux capteurs de la zone 2
+        cv.Optional("zone2_room_temp"): text_sensor.text_sensor_schema(
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        ).extend(
+            {
+                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
+            }
+        ),
+        cv.Optional("zone2_flow_temp"): text_sensor.text_sensor_schema(
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
+        ).extend(
+            {
+                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
+            }
+        ),
     }
 ).extend(cv.COMPONENT_SCHEMA)
-
 
 def to_code(config):
     heatpump = yield cg.get_variable(config[CONF_ECODAN_ID])
