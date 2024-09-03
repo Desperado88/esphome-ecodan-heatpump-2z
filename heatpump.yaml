@@ -70,6 +70,10 @@ text_sensor:
       name: Date energy production      
     holiday_mode:
       name: Holiday mode
+    zone2_room_temp:
+      name: Zone 2 Room Temperature
+    zone2_flow_temp:
+      name: Zone 2 Flow Temperature
 
 sensor:
   - platform: uptime
@@ -85,7 +89,13 @@ sensor:
     output_power:
       name: Output power
     zone1_room_temperature:
-      name: Room temperature
+      name: Zone 1 Room Temperature
+    zone1_flow_temp_setpoint:
+      name: Zone 1 Flow Temperature Setpoint
+    zone2_room_temperature:
+      name: Zone 2 Room Temperature
+    zone2_flow_temp_setpoint:
+      name: Zone 2 Flow Temperature Setpoint
     gas_return_temp_signed:
       name: Gas return temperature
     outside_temperature:
@@ -113,6 +123,7 @@ sensor:
     energy_dhw_prod_yesterday:
       name: Hot water energy production (yesterday)
 
+
 switch:
   - platform: ecodan
     power_state:
@@ -132,6 +143,10 @@ number:
     hot_water_setpoint:
       name: Hot water setpoint
     zone1_room_temp_setpoint:
-      name: Room temperature setpoint
+      name: Zone 1 Room Temperature Setpoint
     zone1_flow_temp_setpoint:
-      name: Flow temperature setpoint
+      name: Zone 1 Flow Temperature Setpoint
+    zone2_room_temp_setpoint:
+      name: Zone 2 Room Temperature Setpoint
+    zone2_flow_temp_setpoint:
+      name: Zone 2 Flow Temperature Setpoint
