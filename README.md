@@ -1,7 +1,7 @@
 # ESPHome components for Ecodan heatpumps
-This is a set of components to read out and control Mitsubishi Ecodan heatpumps. I have an ERST20D-VM2D and it is also confirmed to work with EHSD20D-YM9D. It probably works for many air-water heatpumps with CN105 connector. 
+This is a set of components to read out and control Mitsubishi Ecodan heatpumps for 2 zones. I have an ERST20D-VM2D and it is also confirmed to work with EHSD20D-YM9D. It probably works for many air-water heatpumps with CN105 connector. 
 
-It is highly inspired by https://github.com/BartGijsbers/CN105Gateway.
+It is highly inspired by [https://github.com/BartGijsbers/CN105Gateway.](https://github.com/tobias-93/esphome-ecodan-heatpump).
 
 ## Table of Contents
 - [Hardware](#hardware)
@@ -151,9 +151,6 @@ api:
 ```
 
 Inspired by https://github.com/geoffdavis/esphome-mitsubishiheatpump#remote-temperature.
-
-## Contributing
-Let me know if there is anything you are missing or if you have improvement ideas.
 
 ## Help
 Join the discussions on [Gitter](https://app.gitter.im/#/room/#Mitsubishi-CN105-Protocol-Decode_community:gitter.im)
