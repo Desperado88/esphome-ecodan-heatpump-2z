@@ -60,16 +60,12 @@ CONFIG_SCHEMA = cv.Schema(
             }
         ),
         # Ajoutez les nouveaux capteurs de la zone 2
-        cv.Optional("zone2_room_temp"): text_sensor.text_sensor_schema(
-            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-        ).extend(
+        cv.Optional("zone2_room_temp"): text_sensor.TEXT_SENSOR_SCHEMA.extend(
             {
                 cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
             }
         ),
-        cv.Optional("zone2_flow_temp"): text_sensor.text_sensor_schema(
-            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
-        ).extend(
+        cv.Optional("zone2_flow_temp"): text_sensor.TEXT_SENSOR_SCHEMA.extend(
             {
                 cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
             }
