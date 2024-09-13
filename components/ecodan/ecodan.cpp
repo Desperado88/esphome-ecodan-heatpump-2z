@@ -25,36 +25,19 @@ void EcodanSwitch::dump_config() {
 void EcodanSwitch::write_state(bool state) {
   uint8_t sendBuffer[PACKET_BUFFER_SIZE];
   bool send = false;
-  
   #define ECODAN_WRITE_SWITCH(sw) \
     if (this->key_ == #sw) { \
       send = true; \
-      memcpy(sendBuffer, ecodan::commands::command_##sw::packetMask, PACKET_BUFFER_SIZE); \
-      sendBuffer[ecodan::commands::command_##sw::varIndex] = state ? 1 : 0; \
+      memcpy(sendBuffer, command_##sw::packetMask, PACKET_BUFFER_SIZE); \
+      sendBuffer[command_##sw::varIndex] = state ? 1 : 0; \
     }
-
-  // Appliquer la macro pour les commandes disponibles
-  ECODAN_SWITCH_LIST(ECODAN_WRITE_SWITCH, )
-  
-  // Commandes spécifiques pour la zone 1
-  ECODAN_WRITE_SWITCH(zone1_room_temp)
-  ECODAN_WRITE_SWITCH(zone1_room_temp_setpoint)
-  ECODAN_WRITE_SWITCH(zone1_flow_temp_setpoint)
-  
-  // Commandes spécifiques pour la zone 2
-  ECODAN_WRITE_SWITCH(zone2_room_temp)
-  ECODAN_WRITE_SWITCH(zone2_room_temp_setpoint)
-  ECODAN_WRITE_SWITCH(zone2_flow_temp_setpoint)
-  
-  if (!send) {
+    ECODAN_SWITCH_LIST(ECODAN_WRITE_SWITCH, )
+  if (send == false) {
     return;
   }
-  
   this->heatpump_->sendSerialPacket(sendBuffer);
   this->publish_state(state);
 }
-
-
 
 void EcodanSelect::dump_config() {
   LOG_SELECT("", "Ecodan Select", this);
@@ -259,7 +242,7 @@ void EcodanHeatpump::setRemoteTemperature(float value) {
   uint8_t sendBuffer[PACKET_BUFFER_SIZE], temp1, temp2;
   memcpy(sendBuffer, command_zone1_room_temp::packetMask, PACKET_BUFFER_SIZE);
   if (value > 0) {
-    ESP_LOGI(TAG, "Zone 1 temperature set to: %f", value);
+    ESP_LOGI(TAG, "Room temperature set to: %f", value);
     // uint16_t temperature = value * 100;
     // temp1 = (uint8_t) (temperature >> 8);
     // temp2 = (uint8_t) (temperature & 0x00ff);
@@ -273,7 +256,7 @@ void EcodanHeatpump::setRemoteTemperature(float value) {
     float temp2 = (value * 2) + 128;
     sendBuffer[command_zone1_room_temp::varIndex + 1] = (int)temp2;
   } else {
-    ESP_LOGI(TAG, "Zone 1 temperature control back to builtin sensor");
+    ESP_LOGI(TAG, "Room temperature control back to builtin sensor");
     sendBuffer[command_zone1_room_temp::varIndex - 1] = 0x00;
     sendBuffer[command_zone1_room_temp::varIndex + 1] = 0x80;
   }
@@ -300,7 +283,6 @@ void EcodanHeatpump::setRemoteTemperatureZone2(float value) {
 
   this->sendSerialPacket(sendBuffer);
 }
-
 
 void EcodanHeatpump::dump_config() {
   ESP_LOGCONFIG(TAG, "ecodan:");
