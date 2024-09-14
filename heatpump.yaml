@@ -1,5 +1,17 @@
+substitutions:
+  devicename: esp-pac
+  long_devicename: PAC
+
+esphome:
+  name: $devicename
+  comment: $long_devicename
+  platform: esp8266
+  board: esp01_1m
+
+# Décodage des commandes : https://github.com/m000c400/Mitsubishi-CN105-Protocol-Decode
+# https://github.com/tobias-93/esphome-ecodan-heatpump  => - source: github://tobias-93/esphome-ecodan-heatpump@main
 external_components:
-  - source: github://tobias-93/esphome-ecodan-heatpump-2z@main
+  - source: github://Desperado88/esphome-ecodan-heatpump@main
     components: [ ecodan ]
 
 logger:
@@ -8,15 +20,20 @@ logger:
 api:
 
 ota:
+  - platform: esphome
+    password: "*****************************"
 
 wifi:
-# remove leading '#' and fill in your wifi details
-#  ssid: !secret wifi_ssid
-#  password: !secret wifi_password
-
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 192.168.1.14
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "${friendlyName} Fallback Hotspot"
+    ssid: "Esp-01S-Pac Fallback Hotspot"
+    password: "T3mAc7QQBRzs"
 
 captive_portal:
 
@@ -43,110 +60,110 @@ ecodan:
 
 text_sensor:
   - platform: version
-    name: ESPHome Version
+    name: $devicename ESPHome Version
   - platform: wifi_info
     ip_address:
-      name: IP
+      name: $devicename IP
     ssid:
-      name: SSID
+      name: $devicename SSID
     bssid:
-      name: BSSID
+      name: $devicename BSSID
   - platform: ecodan
     date_time:
-      name: Current date/time
+      name: $devicename Actuelle date/time
     defrost:
-      name: Defrost
+      name: $devicename Décongélation
     heating_stage:
-      name: Heating stage
+      name: $devicename Étape de chauffe
     operating_mode:
-      name: Operating mode
+      name: $devicename Mode de fonctionnement
     heat_cool:
-      name: Heating/cooling
+      name: $devicename Chauffage/refroidissement
     hot_water_timer:
-      name: Hot water timer
+      name: $devicename Minuterie d'eau chaude
     date_energy_cons:
-      name: Date energy consumption
+      name: $devicename Date de consommation d'énergie
     date_energy_prod:
-      name: Date energy production      
+      name: $devicename Production d'énergie à partir de dattes      
     holiday_mode:
-      name: Holiday mode
-    zone2_room_temp:
-      name: Zone 2 Room Temperature
-    zone2_flow_temp:
-      name: Zone 2 Flow Temperature
+      name: $devicename Mode vacances
+    # zone2_room_temp:
+    #   name: $devicename Zone 2 Room Temperature
+    # zone2_flow_temp:
+    #   name: $devicename Zone 2 Flow Temperature
+
 
 sensor:
   - platform: uptime
-    name: Uptime
+    name: $devicename Uptime
   - platform: wifi_signal
-    name: WiFi Signal
+    name: $devicename WiFi Signal
     update_interval: 60s
   - platform: ecodan
     error_code:
-      name: Error code
+      name: $devicename Code d'erreur
     frequency:
-      name: Frequency
+      name: $devicename Fréquence
     output_power:
-      name: Output power
+      name: $devicename Puissance de sortie
     zone1_room_temperature:
-      name: Zone 1 Room Temperature
-    zone1_flow_temp_setpoint:
-      name: Zone 1 Flow Temperature Setpoint
-    zone2_room_temperature:
-      name: Zone 2 Room Temperature
-    zone2_flow_temp_setpoint:
-      name: Zone 2 Flow Temperature Setpoint
+      name: $devicename Zone 1 Room Temperature
+    # zone1_flow_temp_setpoint:
+    #   name: $devicename Zone 1 Flow Temperature Setpoint
+    # zone2_room_temperature:
+    #   name: $devicename Zone 2 Room Temperature
+    # zone2_flow_temp_setpoint:
+    #   name: $devicename Zone 2 Flow Temperature Setpoint
     gas_return_temp_signed:
-      name: Gas return temperature
+      name: $devicename Température de retour du gaz
     outside_temperature:
-      name: Outside temperature
+      name: $devicename Température extérieure
     water_feed_temp_signed:
-      name: Water feed temperature
+      name: $devicename Température d'alimentation en eau
     water_return_temp_signed:
-      name: Water return temperature
+      name: $devicename Température de retour d'eau
     hot_water_temperature:
-      name: Hot water temperature
+      name: $devicename Température de l'eau chaude
     runtime:
-      name: Runtime
+      name: $devicename Durée d'exécution
     water_flow:
-      name: Water flow
+      name: $devicename Débit d'eau
     energy_cons_yesterday:
-      name: Heating energy consumption (yesterday)
+      name: $devicename Consommation d'énergie de chauffage (hier)
     energy_prod_yesterday:
-      name: Heating energy production (yesterday)
+      name: $devicename Production d'énergie de chauffage (hier)
     energy_cooling_cons_yesterday:
-      name: Cooling energy consumption (yesterday)
+      name: $devicename Consommation d'énergie de refroidissement (hier)
     energy_cooling_prod_yesterday:
-      name: Cooling energy production (yesterday)
+      name: $devicename Production d'énergie de refroidissement (hier)
     energy_dhw_cons_yesterday:
-      name: Hot water energy consumption (yesterday)
+      name: $devicename Consommation d'énergie pour l'eau chaude (hier)
     energy_dhw_prod_yesterday:
-      name: Hot water energy production (yesterday)
-
+      name: $devicename Production d'énergie pour l'eau chaude (hier)
 
 switch:
   - platform: ecodan
     power_state:
-      name: Power state
+      name: $devicename État de l'alimentation
     force_dhw:
-      name: Force DHW
+      name: $devicename Force DHW
 
 select:
   - platform: ecodan
     mode_select:
-      name: Mode
+      name: $devicename Mode
     hot_water_mode:
-      name: Hot water mode
+      name: $devicename Mode eau chaude
 
 number:
   - platform: ecodan
     hot_water_setpoint:
-      name: Hot water setpoint
+      name: $devicename Point de consigne de l'eau chaude
     zone1_room_temp_setpoint:
-      name: Zone 1 Room Temperature Setpoint
+      name: $devicename Consigne de température ambiante
     zone1_flow_temp_setpoint:
-      name: Zone 1 Flow Temperature Setpoint
-    zone2_room_temp_setpoint:
-      name: Zone 2 Room Temperature Setpoint
-    zone2_flow_temp_setpoint:
-      name: Zone 2 Flow Temperature Setpoint
+      name: $devicename Consigne de température de départ
+    # zone2_room_temp_setpoint:
+    #   name: $devicename Zone 2 Room Temperature Setpoint
+    # zone2_flow_temp_setpoint:
+    #   name: $devicename Zone 2 Flow Temperature Setpoint
