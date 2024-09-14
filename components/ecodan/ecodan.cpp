@@ -269,12 +269,13 @@ void EcodanHeatpump::setRemoteTemperatureZone2(float value) {
 
   if (value > 0) {
     ESP_LOGI(TAG, "Zone 2 temperature set to: %f", value);
-
-    value = round(value * 2) / 2;
-    uint8_t temp1 = 3 + ((value - 10) * 2);
-    sendBuffer[command_zone2_room_temp::varIndex] = temp1;
-    uint8_t temp2 = (value * 2) + 128;
-    sendBuffer[command_zone2_room_temp::varIndex + 1] = temp2;
+    value = value * 2;
+    value = round(value);
+    value = value / 2;
+    uint8_t temp12 = 3 + ((value - 10) * 2);
+    sendBuffer[command_zone2_room_temp::varIndex] = temp12;
+    uint8_t temp22 = (value * 2) + 128;
+    sendBuffer[command_zone2_room_temp::varIndex + 1] = temp22;
   } else {
     ESP_LOGI(TAG, "Zone 2 temperature control back to builtin sensor");
     sendBuffer[command_zone2_room_temp::varIndex - 1] = 0x00;
