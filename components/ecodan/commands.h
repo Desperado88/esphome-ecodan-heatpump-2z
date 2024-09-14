@@ -10,8 +10,7 @@ namespace ecodan {
 using std::uint8_t;
 
 enum commandVarTypeEnum {
-  CommandVarType_TEMPERATURE_Z1,
-  CommandVarType_TEMPERATURE_Z2,
+  CommandVarType_TEMPERATURE,
   CommandVarType_AC_MODE_SETTING,
   CommandVarType_ON_OFF,
   CommandVarType_HOT_WATER_MODE,
