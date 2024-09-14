@@ -238,7 +238,7 @@ void EcodanHeatpump::parsePacket(uint8_t *packet) {
   ECODAN_NUMBER_LIST(ECODAN_PUBLISH_NUMBER, )
 }
 
-void EcodanHeatpump::setRemoteTemperature(float value) {
+void EcodanHeatpump::setRemoteTemperatureZone1(float value) {
   uint8_t sendBuffer[PACKET_BUFFER_SIZE], temp1, temp2;
   memcpy(sendBuffer, command_zone1_room_temp::packetMask, PACKET_BUFFER_SIZE);
   if (value > 0) {

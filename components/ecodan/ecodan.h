@@ -108,7 +108,7 @@ class EcodanHeatpump : public PollingComponent, public uart::UARTDevice {
 
     void dump_config() override;
 
-    void setRemoteTemperature(float value);
+    void setRemoteTemperatureZone1(float value);
 
     void setRemoteTemperatureZone2(float value);
 
